@@ -1,0 +1,55 @@
+<ion-content [fullscreen]="true">
+  <div id="container">
+
+    <ion-grid *ngIf="!isRegister">
+      <!-- Login Form -->
+      <ion-row>
+        <ion-col size="12" size-md="6" offset-md="3">
+          <form>
+            <h1>Ingreso de usuario</h1>
+            <ion-item>
+              <ion-input [(ngModel)]="usuarioRequest.username" name="usuario" label="Usuario:" type="text" labelPlacement="floating"
+              placeholder="Ingrese Un Usuario"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input [(ngModel)]="usuarioRequest.password" name="password" label="Contraseña:" type="password" labelPlacement="floating"
+              placeholder="Ingrese Una Password"></ion-input>
+            </ion-item>
+            <ion-button [hidden]="loading" (click)="iniciarSesion()" shape="round" style="margin-top: 25px;">
+              <span *ngIf="!loading">Ingresar</span>
+              <ion-spinner *ngIf="loading"></ion-spinner>
+            </ion-button>       
+            <p style="margin-top: 25px;">¿No tienes cuenta? <a (click)="toggleForm()">Registrare aqui</a></p>   
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="isRegister">
+      <ion-row>
+        <ion-col size="12" size-md="6" offset-md="3">
+          <form>
+            <h1>Registro de usuario</h1>
+            <ion-item>
+              <ion-input [(ngModel)]="registroRequest.username" name="usuario" label="Nombre de Usuario" type="text"  labelPlacement="floating"
+                placeholder="Ingrese su Usuario"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input [(ngModel)]="registroRequest.password" name="password" label="Contraseña" type="password" labelPlacement="floating"
+                placeholder="Ingrese contraseña"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input [(ngModel)]="registroRequest.correo" name="correo"  label="Correo" type="text" labelPlacement="floating"
+                placeholder="Ingrese Un Correo"></ion-input>
+            </ion-item>  
+            <ion-button [hidden]="loading" (click)="registrarUsuario()" shape="round" style="margin-top: 25px;">
+              <span *ngIf="!loading">Registrarse</span>
+              <ion-spinner *ngIf="loading"></ion-spinner>
+            </ion-button>
+            <p style="margin-top: 25px;">¿Ya tienes cuenta? <a (click)="toggleForm()">Ingresa aqui</a></p> 
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

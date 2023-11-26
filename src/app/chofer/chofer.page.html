@@ -1,0 +1,16 @@
+<ion-content [fullscreen]="true">
+  <!-- Barra de carga -->
+  <div *ngIf="loading" class="loading-indicator ion-text-center">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando...</p>
+  </div>
+  <div id="container">
+    <div *ngIf="isUser">
+      <div>
+        <h1>¿Te gustaria formar parte de nuestra flota de conductores?</h1>
+        <p> Si tienes un vehiculo año 2006 en adelante, que esperas para generar ingresos extras con tellevoApp</p>
+      </div>
+      <ion-button style="margin-top: 20px;" (click)="cambiar_rol()">Convertirme en chofer</ion-button>
+    </div>
+  </div>
+</ion-content>

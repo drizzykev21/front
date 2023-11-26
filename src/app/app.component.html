@@ -1,0 +1,50 @@
+<ion-app>
+  <ion-header style="text-align:center;">
+    <ion-toolbar>
+      <ion-title>
+        
+        <h1 style="margin: auto; text-align:center;"><ion-icon name="car-sport"></ion-icon> TeLlevoApp</h1>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div style="width:80%;margin:auto;text-align:center;">
+    <ion-router-outlet></ion-router-outlet>
+  </div>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="home">
+        <ion-icon name="planet-outline"></ion-icon>
+        <ion-label>Inicio</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="perfil" (click)="irAPerfil()" *ngIf="isLoggin">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <ion-label>Perfil</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="login" *ngIf="!isLoggin">
+        <ion-icon name="finger-print-outline"></ion-icon>
+        <ion-label>Login</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="ayuda" *ngIf="isLoggin">
+        <ion-icon name="help-circle-outline"></ion-icon>
+        <ion-label>Ayuda</ion-label>
+      </ion-tab-button>
+
+      <div *ngIf="!isChofer">
+        <ion-tab-button tab="chofer" *ngIf="isLoggin">
+          <ion-icon name="speedometer-outline"></ion-icon>
+          <ion-label>Ser Chofer</ion-label>
+        </ion-tab-button>
+      </div>
+
+      <ion-tab-button (click)="salir()" *ngIf="isLoggin">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <ion-label>Salir</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>
+
+</ion-app> 

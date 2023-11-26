@@ -1,0 +1,134 @@
+<ion-content [fullscreen]="true">
+  <!-- Bienvenida Usuarios Logeados-->
+  <div *ngIf='isAuth'>
+    <div id="container">
+      <!-- Chofer -->
+      <div *ngIf="isChofer">
+        <!-- sin auto registrado -->
+        <div *ngIf="!registro">
+          <div>
+            <ion-grid >
+              <!-- Login Form -->
+              <ion-row>
+                <ion-col size="12" size-md="6" offset-md="3">
+                  <form>
+                    <h1>Primeros pasos en la app</h1>
+                    <p>Para comenzar a recibir viajes deberas ingresar los datos de tu vehiculo</p>
+                    <ion-item>
+                      <ion-input [(ngModel)]="autoRequest.patente" name="patente " label="Patente:" type="text" labelPlacement="floating"
+                      placeholder="Ingrese una patente "></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-input [(ngModel)]="autoRequest.capacidad " name="capacidad " label="Capacidad:" type="text" labelPlacement="floating"
+                      placeholder="Ingrese Una Capacidad"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-input [(ngModel)]="autoRequest.modelo  " name="modelo  " label="Modelo:" type="text" labelPlacement="floating"
+                      placeholder="Ingrese Un Modelo"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-input [(ngModel)]="autoRequest.marca  " name="marca  " label="Marca:" type="text" labelPlacement="floating"
+                      placeholder="Ingrese Una Marca"></ion-input>
+                    </ion-item>
+                    <ion-button (click)="registrarAuto()" shape="round" style="margin-top: 25px;">
+                      <span>RegistrarAuto</span>
+                    </ion-button>       
+                  </form>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </div>
+        <!-- con auto registrado -->
+        <div *ngIf="registro">
+          <div *ngIf="!viajeFinalizado">
+            <div *ngIf="!seleccionandoViaje">
+              <p>Viajes Disponibles:</p>
+              <!-- Mostrar la lista de autos -->
+              <div *ngFor="let viaje of viajes" style="margin: auto;text-align: center;margin-top:15px;">
+                <!-- Aquí va la información de cada auto -->
+                <ion-item style="width: 60%; margin:auto;margin-top:15px;">
+                  <div style="margin: auto;text-align: center;margin-top:15px;">
+                    <div>Inicio: {{ viaje.inicio }} Destino: {{ viaje.destino }} Usuario: {{viaje.usuario}}</div>
+                    <!-- Botón para seleccionar el auto -->
+                      <ion-button expand="full" style="width: 60%; margin:auto;margin-top:15px;" (click)="seleccionarViaje(this.viaje)">Seleccionar Viaje</ion-button>
+                  </div>
+                </ion-item>
+              </div>
+            </div>
+            <div *ngIf="seleccionandoViaje">
+              {{mensajebr}}
+              <ion-progress-bar type="indeterminate" style="width: 60%; margin:auto; margin-top:15px;"></ion-progress-bar>
+              <ion-button (click)="finalizaViaje()">Finalizar Viaje</ion-button>
+            </div>
+          </div>
+          <div *ngIf="viajeFinalizado">
+              Viaje Finalizado, no te olvides de cobrar!!
+              <ion-button (click)="reinicio()">Volver</ion-button>
+          </div>
+        </div>
+      </div>
+      <!-- Usuario-->
+      <div *ngIf="!isChofer">
+        <!-- viajando -->
+        <div *ngIf="viajando">
+          <!-- Tomando -->
+          <div *ngIf="esperandoChofer">
+            Estamos esperando que un chofer acepte tu viaje
+            <ion-progress-bar type="indeterminate" style="width: 60%; margin:auto; margin-top:15px;"></ion-progress-bar>
+          </div>
+          <!-- Esperando Chofer -->
+          <div *ngIf="choferEnTransito">
+            El chofer a aceptado tu vieje, dirigete al punto de encuentro. tu chofer sera: {{viajeDB.chofer}}
+            <ion-progress-bar type="indeterminate" style="width: 60%; margin:auto; margin-top:15px;"></ion-progress-bar>
+          </div>
+          <!-- Finalizado -->
+          <div *ngIf="viajeFinalizado">
+            El viaje con {{viajeDB.chofer}} ha finalizado con exito, no te olvides de pagar!
+            <br>
+            <ion-button (click)="reinicio()">Volver</ion-button>
+          </div>
+        </div>
+        <!-- Aun no viaja-->
+        <div *ngIf="!viajando">
+          <div *ngIf="buscandoChofer">
+            <p>Autos Disponibles:</p>
+            <!-- Mostrar la lista de autos -->
+            <div *ngFor="let auto of autos" style="margin: auto;text-align: center;">
+              <!-- Aquí va la información de cada auto -->
+              <div style="text-align:center;margin:auto;">
+                <div>{{ auto.marca }} {{auto.modelo}}</div>
+                <!-- Botón para seleccionar el auto -->
+                <ion-item style="width: 50%; text-align:center;margin:auto;">
+                  <ion-button expand="full" (click)="seleccionarAuto(this.auto)"style="text-align:center;margin:auto;">Seleccionar Auto</ion-button>
+                </ion-item>
+              </div>
+            </div>
+          </div>
+          <!-- Buscando Chofer-->
+          <div *ngIf="!buscandoChofer" style="width: 50%; margin:auto;">
+            <h1>¿Donde quieres ir?</h1>
+            <ion-item >
+              <ion-icon class="icon" name="location-outline"></ion-icon>
+              <ion-input style="text-indent:15px" [(ngModel)]="viaje.inicio" label="Punto de partida" labelPlacement="floating" type="text" maxlength="38"></ion-input>
+            </ion-item>
+            <br>
+            <ion-item>
+              <ion-icon class="icon" name="location-sharp"></ion-icon>
+              <ion-input style="text-indent:15px" [(ngModel)]="viaje.termino" label="Punto de llegada" labelPlacement="floating" type="text" maxlength="38"></ion-input>
+            </ion-item>
+            <ion-button expand="full" (click)="buscarVehiculo()">Buscar Vehiculo</ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bienvenida Usuario no Logeados-->
+  <div *ngIf="!isAuth">
+    <div id="container">
+      <h2>Bienvenido a TeLlevoApp</h2>
+      <p>Para usar la plataforma debes iniciar session! </p>
+      <ion-button (click)="irALogin()">Ingresar</ion-button>
+    </div>
+  </div>
+</ion-content>

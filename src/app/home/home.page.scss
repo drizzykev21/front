@@ -1,0 +1,16 @@
+.road {
+    width: 100%;
+    height: 20px;
+    border: 1px solid #000;
+    position: relative;
+  }
+  
+  .car {
+    width: 30px;
+    height: 20px;
+    background-color: #ffcc00;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: left 0.5s linear;
+  }
