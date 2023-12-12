@@ -10,7 +10,7 @@ import { Token } from '@angular/compiler';
 export class AuthService {
 
   constructor(private http: HttpClient) {}
-  private authURL = 'http://localhost:5000';
+  private authURL = 'https://radic21.pythonanywhere.com';
   private authToken: string | undefined;
   private usuario: string = '';
   private isLoggin: boolean = false; 

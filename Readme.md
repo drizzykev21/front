@@ -6,9 +6,16 @@ Ejecutaremos los siguientes comandos para crear el proyecto y agregar capacito y
 
 ionic start tellevo blank --type=angular --capacitor
 cd tellevo
-npm install @capacitor/android
-npx cap add android
 
+npm install @capacitor/core @capacitor/cli
+npx cap init tellevoapp cl.pinolabs.am
+npx cap add android 
+
+#cada vez que hagamos un cambio
+ionic build
+npx cap copy
+npx cap sync
+npx cap open android
 ## ¿Como puedo ver mis cambios en el apk?
 
 Ejecutamos los siguientes comandos:

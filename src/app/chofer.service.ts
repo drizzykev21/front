@@ -10,7 +10,7 @@ export class ChoferService {
   
   constructor(private http: HttpClient, private authService : AuthService) { }
   private authToken = this.authService.getToken();
-  private apiURL = 'http://localhost:5000';
+  private apiURL = 'https://radic21.pythonanywhere.com';
   
 
   check_status(): Observable<any[]> {
